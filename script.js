@@ -31,3 +31,29 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
+// Checkout button
+const checkoutBtn = document.getElementById("checkout-btn");
+
+if (checkoutBtn) {
+    checkoutBtn.addEventListener("click", () => {
+        if (cart.length === 0) {
+            alert("Your cart is empty!");
+            return;
+        }
+
+        alert("Thank you for your order! Your checkout was successful.");
+
+        cart = [];
+        localStorage.setItem("cart", JSON.stringify(cart));
+        displayCart();
+    });
+}
+function toggleMenu() {
+    const menu = document.getElementById("dropdownMenu");
+
+    if (menu.style.display === "block") {
+        menu.style.display = "none";
+    } else {
+        menu.style.display = "block";
+    }
+}

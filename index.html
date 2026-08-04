@@ -9,56 +9,50 @@
 </head>
 
 <body> 
+    <video autoplay muted loop playsinline id="bg-video">
+         <source src="video/kitchen.mp4.mp4" type="video/mp4">
+    </video>
     <header>
         <h1> Dees Kitchens</h1>
         <p>Food  .Dessert.  Drink</p>
         <p>Delicious Meals Made with love</p>
     </header>
-    <nav>
-      </div>
-        <a href="#">Home</a>
-       <a href="#">Menu</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
-        <a href="#location">Location</a>
-        <a href="cart.html">🛒 Cart</a>
-        
+<nav>
+    <a href="#">Home</a>
+    <a href="menu.html">Menu</a>
 
-        </div>
-
-        <div class="footer-box">
-            <h3>Contact</h3>
-            <p>📍 makurdi, Nigeria</p>
-            <p>📞 +234 9041627592</p>
-            <p>📧 info@deeskitchen.com</p>
-        
-        <p>💬 WhatsApp:08163699980
-        <a href="https://wa.me/08163699980" target="_blank">
-            Chat with us
-        </a>
-    </p>
-
-    <p>
-        📷 Tiktok:
-        <a href="https://tiktok.com/deeskitchen" target="_blank">
-            @deeskitchen
-        </a>
-    </p>
-        </div>
-
+    <div class="menu-icon" onclick="toggleMenu()">
+        &#8942;
     </div>
 
-        </main>
+    <div id="dropdownMenu" class="dropdown-menu">
+        <a href="about.html">ℹ️ About us</a>
+        <a href="contact us.html">📞 Contact</a>
+        <a href="location.html">📍 Location</a>
+        <a href="cart.html">🛒 Cart</a>
+        <a href="admin.html">👨‍🍳 Admin Login</a>
+    </div>
+</nav>
+
+
+    </main>
 <script src="script.js"></script>
 </body>
 </html>
 </main>
      <section class="hero">
-        <h2>Welcome to Dees Kitchens</h2>
-        <p>Enjoy Fresh, homemade meals prepared with love and delivered to your door.</p>
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="video/kitchen.mp4" type="video/mp4">
+    </video>
+
+    <div class="hero-content">
+        <h2>Welcome to Dee's Kitchen</h2>
+        <p>Enjoy fresh, homemade meals prepared with love.</p>
+
         <button>Order Now</button>
         <a href="menu.html" class="view-menu-btn">View Menu</a>
-     </section>
+    </div>
+</section>
     <section id="menu">
     <h2>Our Menu</h2>
     <div class="menu-nav">
@@ -73,40 +67,6 @@
     <!-- Desserts Section -->
     <!-- Drinks Section -->
 </section>      
-<!-- Featured Categories -->
-<section class="categories">
-
-    <h2>Explore Our Menu</h2>
-
-    <div class="category-container">
-
-        <div class="category-card">
-            <img src="images/main-meals.jpg" alt="Main Meals">
-            <h3>Main Meals</h3>
-            <p>Delicious Nigerian and Continental meals.</p>
-            <button>Add to cart</button>
-            <button>view Menu</button>
-        </div>
-
-        <div class="category-card">
-            <img src="images/desserts.jpg" alt="Desserts">
-            <h3>Desserts</h3>
-            <p>Sweet treats made fresh every day.</p>
-            <button>Add to cart</button>
-            <button>view Menu</button>
-        </div>
-
-        <div class="category-card">
-            <img src="images/drinks.jpg" alt="Drinks">
-            <h3>Drinks</h3>
-            <p>Refreshing soft drinks, juices and smoothies.</p>
-            <button>Add to cart</button>
-            <button>view Menu</button>
-        </div>
-
-    </div>
-
-</section>
     <section class="testimonials">
         <h2>What Our customers say</h2>
         <div class="testimonial-container">
@@ -124,15 +84,6 @@
             </div>
 
         </div>
-    </section>
-    <section class="Contact">
-        <h2>Contact Us</h2>
-        <form class="Contact-form">
-            <input type="text" placeholder="your Name">
-            <input type="email" placeholder="your Emai;">
-            <textarea placeholder="your Message" rows="5" required></textarea>
-            <button type="submit">send Message</button>
-        </form>
     </section>
     <section
       class="why-choose">
