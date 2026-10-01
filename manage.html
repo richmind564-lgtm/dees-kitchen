@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dee Kitchen - Manage Orders</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+    <header>
+        <h1>Dee Kitchen Admin</h1>
+    </header>
+
+    <main>
+
+        <h2>Customer Orders</h2>
+
+        <button onclick="loadOrders()">
+             Refresh Orders
+        </button>
+
+        <div id="orders-container">
+            Loading orders...
+        </div>
+
+    </main>
+
+
+    <script>
+
+        const SUPABASE_URL =
+            "https://nreigsqxxolcbbzacmdg.supabase.co";
+
+        const SUPABASE_KEY =
+            "sb_publishable_TU09leMRuVGZ59y7TjqZzg_n2M2R5Wc";
+
+        const supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_KEY
+            );
+
+
+        async function loadOrders() {
+
+            const container =
+                document.getElementById("orders-container");
+
+            container.innerHTML =
+                "Loading orders...";
+
+
+            const { data: orders, error } =
+                await supabaseClient
+                    .from("orders")
+                    .select("*")
+                    .order("created_at", {
+                        ascending: false
+                    });
+
+
+            if (error) {
+
+                console.error(error);
+
+                container.innerHTML =
+                    "<p>Could not load orders.</p>";
+
+                return;
+            }
+
+
+            if (!orders || orders.length === 0) {
+
+                container.innerHTML =
+                    "<p>No orders yet.</p>";
+
+                return;
+            }
+
+
+            container.innerHTML = "";
+
+
+            for (const order of orders) {
+
+                const { data: items, error: itemsError } =
+                    await supabaseClient
+                        .from("order_items")
+                        .select("*")
+                        .eq("order_id", order.id);
+
+
+                if (itemsError) {
+
+                    console.error(itemsError);
+
+                    continue;
+                }
+
+
+                const orderBox =
+                    document.createElement("div");
+
+                orderBox.className =
+                    "order-box";
+
+
+                let mealsHTML = "";
+
+
+                items.forEach(function (item) {
+
+                    mealsHTML += `
+                        <p>
+                            <strong>
+                                ${item.meal_name}
+                            </strong>
+
+                            -
+                            ₦${Number(item.price)
+                                .toLocaleString()}
+
+                            × ${item.quantity}
+                        </p>
+                    `;
+
+                });
+
+
+                orderBox.innerHTML = `
+
+                    <h3>
+                        Order #${order.id}
+                    </h3>
+
+                    <p>
+                        <strong>Customer:</strong>
+                        ${order.customer_name}
+                    </p>
+
+                    <p>
+                        <strong>Phone:</strong>
+                        ${order.customer_phone}
+                    </p>
+
+                    <p>
+                        <strong>Address:</strong>
+                        ${order.customer_address}
+                    </p>
+
+                    <p>
+                        <strong>Payment:</strong>
+                        ${order.payment_method}
+                    </p>
+
+                    <p>
+                        <strong>Total:</strong>
+                        ₦${Number(order.total_amount)
+                            .toLocaleString()}
+                    </p>
+
+                    <p>
+                        <strong>Status:</strong>
+                        ${order.status}
+                    </p>
+
+                    <label>
+                        Change status:
+                    </label>
+
+                    <select
+                        onchange="updateStatus(
+                            ${order.id},
+                            this.value
+                        )"
+                    >
+
+                        <option value="Pending"
+                            ${order.status === "Pending"
+                                ? "selected"
+                                : ""}>
+                            Pending
+                        </option>
+
+                        <option value="Preparing"
+                            ${order.status === "Preparing"
+                                ? "selected"
+                                : ""}>
+                            Preparing
+                        </option>
+
+                        <option value="Delivered"
+                            ${order.status === "Delivered"
+                                ? "selected"
+                                : ""}>
+                            Delivered
+                        </option>
+
+                    </select>
+
+
+                    <h4>Meals:</h4>
+
+                    ${mealsHTML}
+
+                    <hr>
+
+                `;
+
+
+                container.appendChild(orderBox);
+
+            }
+
+        }
+
+
+        async function updateStatus(orderId, newStatus) {
+
+            const { error } =
+                await supabaseClient
+                    .from("orders")
+                    .update({
+                        status: newStatus
+                    })
+                    .eq("id", orderId);
+
+
+            if (error) {
+
+                console.error(error);
+
+                alert(
+                    "Could not update order status."
+                );
+
+                return;
+            }
+
+
+            alert(
+                "Order status updated to " +
+                newStatus
+            );
+
+
+            loadOrders();
+
+        }
+
+
+        loadOrders();
+
+    </script>
+
+</body>
+</html>
