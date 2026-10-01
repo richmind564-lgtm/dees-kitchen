@@ -375,46 +375,40 @@ body {
    MOBILE
 ========================================= */
 
-@media (max-width: 900px) {
-
-    .dashboard-cards {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-}
-
 @media (max-width: 600px) {
 
-    #admin-panel {
-        flex-direction: column;
+    #admin-panel .sidebar {
+        position: relative;
+        width: 50%;
+        height: auto;
+        min-height: 0;
+        left: auto;
+        top: auto;
     }
 
-    .sidebar {
-        width: 100%;
-        min-height: auto;
-    }
-
-    .sidebar nav {
-        flex-direction: row;
-        flex-wrap: wrap;
-    }
-
-    .sidebar nav a {
-        flex: 1;
-        text-align: center;
-    }
-
-    .main-content {
+    #admin-panel .main-content {
+        margin-left: 0;
+        width: 50%;
         padding: 15px;
     }
 
-    .dashboard-cards {
-        grid-template-columns: 1fr;
+    #admin-panel #orders {
+        width: 100%;
     }
 
-    .login-box {
-        width: 85%;
-        padding: 25px;
+    #admin-panel .admin-box {
+        width: 100%;
+        box-sizing: border-box;
     }
 
+    #admin-panel #orders-list {
+        width: 100%;
+    }
+
+    #admin-panel .order-item {
+        width: 200%;
+        box-sizing: border-box;
+        margin-left: 0;
+        margin-right: 0;
+    }
 }
