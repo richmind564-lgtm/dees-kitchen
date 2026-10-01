@@ -1,25 +1,223 @@
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shopping Cart - Dees Kitchens</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Shopping Cart - Dees Kitchen</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* CART PAGE */
+
+        body {
+            margin: 0;
+            background: linear-gradient(
+                135deg,
+                #c6aec4,
+                #f8eef7
+            );
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            padding: 25px;
+        }
+
+        header h1 {
+            margin: 0;
+            color: #800000;
+        }
+
+        #cart {
+            width: 90%;
+            max-width: 750px;
+            margin: 20px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+            box-sizing: border-box;
+        }
+
+        #cart h2 {
+            text-align: center;
+            color: #800000;
+            margin-top: 0;
+        }
+
+        #cart-items {
+            list-style: none;
+            padding: 0;
+            margin: 25px 0;
+        }
+
+        #cart-items li {
+            background: #f8f8f8;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 10px;
+            border-left: 5px solid #800000;
+        }
+
+        #cart h3 {
+            text-align: right;
+            color: #333;
+            font-size: 20px;
+        }
+
+        #clear-cart {
+            display: block;
+            margin: 20px auto 0;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            background: #800000;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        #clear-cart:hover {
+            background: #5f0000;
+        }
+
+        .cart-summary {
+            width: 90%;
+            max-width: 750px;
+            margin: 20px auto 50px;
+            padding: 25px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .cart-summary h3 {
+            color: #800000;
+            margin-top: 0;
+            font-size: 22px;
+        }
+
+        .cart-summary a {
+            text-decoration: none;
+        }
+
+        .cart-summary button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #800000;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .cart-summary button:hover {
+            background: #5f0000;
+        }
+
+        @media (max-width: 600px) {
+
+            #cart,
+            .cart-summary {
+                width: 92%;
+                padding: 22px;
+            }
+        }
+    .cart-item-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.cart-item-info strong {
+    color: #800000;
+    font-size: 18px;
+}
+
+.cart-item-info span {
+    font-weight: bold;
+    color: #333;
+}
+
+.cart-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cart-controls button {
+    padding: 7px 12px;
+    border: none;
+    border-radius: 6px;
+    background: #800000;
+    color: white;
+    cursor: pointer;
+}
+
+.cart-controls button:hover {
+    background: #5f0000;
+}
+
+.cart-controls .quantity {
+    font-weight: bold;
+    min-width: 25px;
+    text-align: center;
+}
+    </style>
 </head>
+
 <body>
 
 <header>
-    <h1>🛒 Shopping Cart</h1>
+    <h1>Shopping Cart</h1>
 </header>
 
+
 <section id="cart">
-    <h2>🛒 Shopping Cart (<span id="cart-count">0</span>)</h2>
+
+    <h2>
+        Shopping Cart
+        (<span id="cart-count">0</span>)
+    </h2>
 
     <ul id="cart-items"></ul>
 
-    <h3>Total: ₦<span id="cart-total">0</span></h3>
-    <button id="clear-cart">Clear Cart</button>
+    <h3>
+        Total: ₦<span id="cart-total">0</span>
+    </h3>
+
+    <button id="clear-cart">
+        Clear Cart
+    </button>
+
 </section>
 
+
+<div class="cart-summary">
+
+    <h3>
+        Total: ₦<span id="cart-total-summary">0</span>
+    </h3>
+
+    <a href="checkout.html">
+        <button>
+            Checkout
+        </button>
+    </a>
+
+</div>
+
+
 <script src="cart.js"></script>
+
 </body>
 </html>
