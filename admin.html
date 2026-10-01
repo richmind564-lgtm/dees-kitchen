@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Dee Kitchen - Admin</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+</head>
+
+<body>
+
+    <!-- =========================
+         ADMIN LOGIN
+    ========================== -->
+
+    <div id="login-page">
+
+        <div class="login-box">
+
+            <h1>Dee Kitchen</h1>
+
+            <h2>Admin Login</h2>
+
+            <form id="login-form">
+
+                <label>
+                    Admin Email
+                </label>
+
+                <input
+                    type="email"
+                    id="admin-username"
+                    required
+                >
+
+                <label>
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="admin-password"
+                    required
+                >
+
+                <button type="submit">
+                    Login
+                </button>
+
+            </form>
+
+            <p id="login-message"></p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         ADMIN PANEL
+    ========================== -->
+
+    <div
+        id="admin-panel"
+        style="display: none;"
+    >
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <h2>
+                Dee Kitchen
+            </h2>
+
+            <p class="admin-title">
+                Admin Panel
+            </p>
+
+            <nav>
+
+                <a
+                    href="#"
+                    class="admin-link active"
+                    data-section="dashboard"
+                >
+                    Dashboard
+                </a>
+
+                <a
+                    href="#"
+                    class="admin-link"
+                    data-section="manage-menu"
+                >
+                    Manage Menu
+                </a>
+
+                <a
+                    href="#"
+                    class="admin-link"
+                    data-section="orders"
+                >
+                    Orders
+                </a>
+
+                <a
+                    href="#"
+                    class="admin-link"
+                    data-section="customers"
+                >
+                    Customers
+                </a>
+
+                <a
+                    href="#"
+                    class="admin-link"
+                    data-section="settings"
+                >
+                    Settings
+                </a>
+
+            </nav>
+
+            <button
+                id="logout-btn"
+                class="logout-btn"
+            >
+                Logout
+            </button>
+
+        </aside>
+
+
+        <!-- =========================
+             MAIN CONTENT
+        ========================== -->
+
+        <main class="main-content">
+
+
+            <!-- =========================
+                 DASHBOARD
+            ========================== -->
+
+            <section
+                id="dashboard"
+                class="admin-section"
+            >
+
+                <header class="top-bar">
+
+                    <div>
+
+                        <h1>
+                            Dashboard
+                        </h1>
+
+                        <p>
+                            Welcome back, Admin
+                        </p>
+
+                    </div>
+
+                </header>
+
+
+                <!-- DASHBOARD CARDS -->
+
+                <section class="dashboard-cards">
+
+
+                    <!-- TOTAL MEALS -->
+
+                    <div class="card">
+
+                        <h3>
+                            Total Meal
+                        </h3>
+
+                        <p id="total-meals">
+                            0
+                        </p>
+
+                    </div>
+
+
+                    <!-- TOTAL ORDERS -->
+
+                    <div class="card">
+
+                        <h3>
+                            Total Order
+                        </h3>
+
+                        <p id="total-orders">
+                            0
+                        </p>
+
+                    </div>
+
+
+                    <!-- CUSTOMERS -->
+
+                    <div class="card">
+
+                        <h3>
+                            Customer
+                        </h3>
+
+                        <p id="total-customers">
+                            0
+                        </p>
+
+                    </div>
+
+
+                    <!-- TOTAL REVENUE -->
+
+                    <div class="card">
+
+                        <h3>
+                            Total Revenue
+                        </h3>
+
+                        <p id="total-revenue">
+                            ₦0
+                        </p>
+
+                    </div>
+
+                </section>
+
+
+                <!-- RECENT ORDERS -->
+
+                <div class="admin-box">
+
+                    <h2>
+                        Recent Orders
+                    </h2>
+
+                    <button
+                        type="button"
+                        onclick="loadDashboard()"
+                    >
+                        Refresh
+                    </button>
+
+                    <div id="recent-orders">
+
+                        <p>
+                            Loading orders...
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 MANAGE MENU
+            ========================== -->
+
+            <section
+                id="manage-menu"
+                class="admin-section"
+                style="display: none;"
+            >
+
+                <h1>
+                    Manage Menu
+                </h1>
+
+                <div class="admin-box">
+
+                    <h2>
+                        Meals
+                    </h2>
+
+                    <div id="menu-list">
+
+                        <div class="menu-admin-item">
+
+                            <span>
+                                Chicken Burger
+                            </span>
+
+                            <strong>
+                                ₦4,500
+                            </strong>
+
+                        </div>
+
+                        <div class="menu-admin-item">
+
+                            <span>
+                                Chicken Salad
+                            </span>
+
+                            <strong>
+                                ₦2,500
+                            </strong>
+
+                        </div>
+
+                        <div class="menu-admin-item">
+
+                            <span>
+                                Pepperoni Pizza
+                            </span>
+
+                            <strong>
+                                ₦5,000
+                            </strong>
+
+                        </div>
+
+                        <div class="menu-admin-item">
+
+                            <span>
+                                Triple Chocolate Cake
+                            </span>
+
+                            <strong>
+                                ₦3,500
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 ORDERS
+            ========================== -->
+
+            <section
+                id="orders"
+                class="admin-section"
+                style="display: none;"
+            >
+
+                <h1>
+                    Customer Orders
+                </h1>
+
+                <div class="admin-box">
+
+                    <button
+                        type="button"
+                        onclick="loadOrders()"
+                    >
+                        Refresh Orders
+                    </button>
+
+                    <div id="orders-list">
+
+                        <p>
+                            Loading orders...
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 CUSTOMERS
+            ========================== -->
+
+            <section
+                id="customers"
+                class="admin-section"
+                style="display: none;"
+            >
+
+                <h1>
+                    Customers
+                </h1>
+
+                <div class="admin-box">
+
+                    <button
+                        type="button"
+                        onclick="loadCustomers()"
+                    >
+                        Refresh Customers
+                    </button>
+
+                    <div id="customers-list">
+
+                        <p>
+                            Loading customers...
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 SETTINGS
+            ========================== -->
+
+            <section
+                id="settings"
+                class="admin-section"
+                style="display: none;"
+            >
+
+                <h1>
+                    Settings
+                </h1>
+
+                <div class="admin-box">
+
+                    <h2>
+                        Admin Settings
+                    </h2>
+
+                    <p>
+                        Dee Kitchen Admin Panel
+                    </p>
+
+                    <p>
+                        Orders are stored in Supabase.
+                    </p>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+        // =========================
+        // SUPABASE
+        // =========================
+
+        const SUPABASE_URL =
+            "https://nreigsqxxolcbbzacmdg.supabase.co";
+
+        const SUPABASE_KEY =
+            "sb_publishable_TU09leMRuVGZ59y7TjqZzg_n2M2R5Wc";
+
+        const supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_KEY
+            );
+
+
+        // =========================
+        // LOGIN
+        // =========================
+
+        const loginForm =
+            document.getElementById("login-form");
+
+        const loginPage =
+            document.getElementById("login-page");
+
+        const adminPanel =
+            document.getElementById("admin-panel");
+
+        const loginMessage =
+            document.getElementById("login-message");
+
+
+        loginForm.addEventListener(
+            "submit",
+            async function(event) {
+
+                event.preventDefault();
+
+                const email =
+                    document
+                        .getElementById("admin-username")
+                        .value
+                        .trim();
+
+                const password =
+                    document
+                        .getElementById("admin-password")
+                        .value;
+
+                loginMessage.textContent =
+                    "Logging in...";
+
+
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient.auth.signInWithPassword({
+
+                        email: email,
+
+                        password: password
+
+                    });
+
+
+                if (error) {
+
+                    console.error(
+                        "Login error:",
+                        error
+                    );
+
+                    loginMessage.textContent =
+                        "Login failed: " +
+                        error.message;
+
+                    return;
+
+                }
+
+
+                loginMessage.textContent = "";
+
+                loginPage.style.display = "none";
+
+                adminPanel.style.display = "flex";
+
+                loadDashboard();
+
+            }
+        );
+
+
+        // =========================
+        // LOGOUT
+        // =========================
+
+        document
+            .getElementById("logout-btn")
+            .addEventListener(
+                "click",
+                async function() {
+
+                    await supabaseClient.auth.signOut();
+
+                    adminPanel.style.display =
+                        "none";
+
+                    loginPage.style.display =
+                        "flex";
+
+                    document
+                        .getElementById("admin-username")
+                        .value = "";
+
+                    document
+                        .getElementById("admin-password")
+                        .value = "";
+
+                    loginMessage.textContent = "";
+
+                }
+            );
+
+
+        // =========================
+        // NAVIGATION
+        // =========================
+
+        const links =
+            document.querySelectorAll(
+                ".admin-link"
+            );
+
+        const sections =
+            document.querySelectorAll(
+                ".admin-section"
+            );
+
+
+        links.forEach(
+            function(link) {
+
+                link.addEventListener(
+                    "click",
+                    function(event) {
+
+                        event.preventDefault();
+
+                        const sectionName =
+                            link.dataset.section;
+
+
+                        sections.forEach(
+                            function(section) {
+
+                                section.style.display =
+                                    "none";
+
+                            }
+                        );
+
+
+                        const selectedSection =
+                            document.getElementById(
+                                sectionName
+                            );
+
+
+                        if (selectedSection) {
+
+                            selectedSection.style.display =
+                                "block";
+
+                        }
+
+
+                        links.forEach(
+                            function(item) {
+
+                                item.classList.remove(
+                                    "active"
+                                );
+
+                            }
+                        );
+
+
+                        link.classList.add("active");
+
+
+                        if (
+                            sectionName ===
+                            "dashboard"
+                        ) {
+
+                            loadDashboard();
+
+                        }
+
+
+                        if (
+                            sectionName ===
+                            "orders"
+                        ) {
+
+                            loadOrders();
+
+                        }
+
+
+                        if (
+                            sectionName ===
+                            "customers"
+                        ) {
+
+                            loadCustomers();
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+        // =========================
+        // LOAD DASHBOARD
+        // =========================
+
+        async function loadDashboard() {
+
+            // -------------------------
+            // LOAD MEALS
+            // -------------------------
+
+            const {
+                data: meals,
+                error: mealsError
+            } =
+                await supabaseClient
+                    .from("meals")
+                    .select("id");
+
+
+            if (mealsError) {
+
+                console.error(
+                    "Meal error:",
+                    mealsError
+                );
+
+                document
+                    .getElementById("total-meals")
+                    .textContent = "0";
+
+            } else {
+
+                document
+                    .getElementById("total-meals")
+                    .textContent =
+                    meals.length;
+
+            }
+
+
+            // -------------------------
+            // LOAD ORDERS
+            // -------------------------
+
+            const {
+                data: orders,
+                error: ordersError
+            } =
+                await supabaseClient
+                    .from("orders")
+                    .select("*")
+                    .order(
+                        "created_at",
+                        {
+                            ascending: false
+                        }
+                    );
+
+
+            if (ordersError) {
+
+                console.error(
+                    "Orders error:",
+                    ordersError
+                );
+
+                return;
+
+            }
+
+
+            // -------------------------
+            // TOTAL ORDERS
+            // -------------------------
+
+            document
+                .getElementById("total-orders")
+                .textContent =
+                orders.length;
+
+
+            // -------------------------
+            // TOTAL CUSTOMERS
+            // -------------------------
+
+            const customerPhones =
+                new Set();
+
+
+            orders.forEach(
+                function(order) {
+
+                    if (
+                        order.customer_phone
+                    ) {
+
+                        customerPhones.add(
+                            order.customer_phone
+                        );
+
+                    }
+
+                }
+            );
+
+
+            document
+                .getElementById("total-customers")
+                .textContent =
+                customerPhones.size;
+
+
+            // -------------------------
+            // TOTAL REVENUE
+            // -------------------------
+
+            let totalRevenue = 0;
+
+
+            orders.forEach(
+                function(order) {
+
+                    totalRevenue +=
+                        Number(
+                            order.total_amount || 0
+                        );
+
+                }
+            );
+
+
+            document
+                .getElementById("total-revenue")
+                .textContent =
+                "₦" +
+                totalRevenue.toLocaleString();
+
+
+            // -------------------------
+            // RECENT ORDERS
+            // -------------------------
+
+            const recentOrders =
+                document.getElementById(
+                    "recent-orders"
+                );
+
+
+            if (!recentOrders) {
+
+                return;
+
+            }
+
+
+            if (
+                orders.length === 0
+            ) {
+
+                recentOrders.innerHTML =
+                    "<p>No orders yet.</p>";
+
+                return;
+
+            }
+
+
+            recentOrders.innerHTML =
+                orders
+                    .slice(0, 5)
+                    .map(
+                        function(order) {
+
+                            return `
+
+                                <div class="recent-order">
+
+                                    <strong>
+                                        Order #${order.id}
+                                    </strong>
+
+                                    <p>
+                                        Customer:
+                                        ${order.customer_name || "N/A"}
+                                    </p>
+
+                                    <p>
+                                        Phone:
+                                        ${order.customer_phone || "N/A"}
+                                    </p>
+
+                                    <p>
+                                        Total:
+                                        ₦${Number(
+                                            order.total_amount || 0
+                                        ).toLocaleString()}
+                                    </p>
+
+                                    <p>
+                                        Status:
+                                        ${order.status || "Pending"}
+                                    </p>
+
+                                </div>
+
+                            `;
+
+                        }
+                    )
+                    .join("");
+
+        }
+
+
+        // =========================
+        // LOAD ORDERS
+        // =========================
+
+        async function loadOrders() {
+
+            const ordersList =
+                document.getElementById(
+                    "orders-list"
+                );
+
+
+            ordersList.innerHTML =
+                "<p>Loading orders...</p>";
+
+
+            const {
+                data: orders,
+                error
+            } =
+                await supabaseClient
+                    .from("orders")
+                    .select("*")
+                    .order(
+                        "created_at",
+                        {
+                            ascending: false
+                        }
+                    );
+
+
+            if (error) {
+
+                console.error(
+                    "Orders error:",
+                    error
+                );
+
+                ordersList.innerHTML =
+                    "<p>Could not load orders.</p>";
+
+                return;
+
+            }
+
+
+            if (
+                !orders ||
+                orders.length === 0
+            ) {
+
+                ordersList.innerHTML =
+                    "<p>No orders yet.</p>";
+
+                return;
+
+            }
+
+
+            ordersList.innerHTML = "";
+
+
+            for (
+                const order of orders
+            ) {
+
+                const {
+                    data: items,
+                    error: itemsError
+                } =
+                    await supabaseClient
+                        .from("order_items")
+                        .select("*")
+                        .eq(
+                            "order_id",
+                            order.id
+                        );
+
+
+                if (itemsError) {
+
+                    console.error(
+                        "Order items error:",
+                        itemsError
+                    );
+
+                    continue;
+
+                }
+
+
+                let mealsHTML = "";
+
+
+                if (
+                    items &&
+                    items.length > 0
+                ) {
+
+                    items.forEach(
+                        function(item) {
+
+                            mealsHTML += `
+
+                                <li>
+
+                                    <strong>
+                                        ${item.meal_name}
+                                    </strong>
+
+                                    ×
+                                    ${item.quantity}
+
+                                    —
+                                    ₦${Number(
+                                        item.price
+                                    ).toLocaleString()}
+
+                                </li>
+
+                            `;
+
+                        }
+                    );
+
+                } else {
+
+                    mealsHTML =
+                        "<li>No meal details found.</li>";
+
+                }
+
+
+                const div =
+                    document.createElement("div");
+
+
+                div.className =
+                    "order-item";
+
+
+                div.innerHTML = `
+
+                    <h2>
+                        Order #${order.id}
+                    </h2>
+
+                    <p>
+                        <strong>
+                            Customer:
+                        </strong>
+
+                        ${order.customer_name || "N/A"}
+                    </p>
+
+                    <p>
+                        <strong>
+                            Phone:
+                        </strong>
+
+                        ${order.customer_phone || "N/A"}
+                    </p>
+
+                    <p>
+                        <strong>
+                            Address:
+                        </strong>
+
+                        ${order.customer_address || "N/A"}
+                    </p>
+
+                    <p>
+                        <strong>
+                            Payment:
+                        </strong>
+
+                        ${order.payment_method || "N/A"}
+                    </p>
+
+                    <p>
+                        <strong>
+                            Date:
+                        </strong>
+
+                        ${new Date(
+                            order.created_at
+                        ).toLocaleString()}
+                    </p>
+
+                    <h3>
+                        Meals
+                    </h3>
+
+                    <ul>
+                        ${mealsHTML}
+                    </ul>
+
+                    <h3>
+                        Total:
+                        ₦${Number(
+                            order.total_amount || 0
+                        ).toLocaleString()}
+                    </h3>
+
+                    <p>
+
+                        <strong>
+                            Status:
+                        </strong>
+
+                        ${order.status || "Pending"}
+
+                    </p>
+
+
+                    <label>
+                        Change status:
+                    </label>
+
+
+                    <select
+                        onchange="
+                            updateStatus(
+                                ${order.id},
+                                this.value
+                            )
+                        "
+                    >
+
+                        <option
+                            value="Pending"
+                            ${
+                                order.status === "Pending"
+                                    ? "selected"
+                                    : ""
+                            }
+                        >
+                            Pending
+                        </option>
+
+
+                        <option
+                            value="Preparing"
+                            ${
+                                order.status === "Preparing"
+                                    ? "selected"
+                                    : ""
+                            }
+                        >
+                            Preparing
+                        </option>
+
+
+                        <option
+                            value="Delivered"
+                            ${
+                                order.status === "Delivered"
+                                    ? "selected"
+                                    : ""
+                            }
+                        >
+                            Delivered
+                        </option>
+
+                    </select>
+
+                    <hr>
+
+                `;
+
+
+                ordersList.appendChild(div);
+
+            }
+
+        }
+
+
+        // =========================
+        // UPDATE ORDER STATUS
+        // =========================
+
+        async function updateStatus(
+            orderId,
+            newStatus
+        ) {
+
+            const {
+                error
+            } =
+                await supabaseClient
+                    .from("orders")
+                    .update({
+                        status: newStatus
+                    })
+                    .eq(
+                        "id",
+                        orderId
+                    );
+
+
+            if (error) {
+
+                console.error(
+                    "Status update error:",
+                    error
+                );
+
+                alert(
+                    "Could not update order status."
+                );
+
+                return;
+
+            }
+
+
+            alert(
+                "Order status updated to " +
+                newStatus
+            );
+
+
+            loadOrders();
+
+        }
+
+
+        // =========================
+        // LOAD CUSTOMERS
+        // =========================
+
+        async function loadCustomers() {
+
+            const customersList =
+                document.getElementById(
+                    "customers-list"
+                );
+
+
+            customersList.innerHTML =
+                "<p>Loading customers...</p>";
+
+
+            const {
+                data: orders,
+                error
+            } =
+                await supabaseClient
+                    .from("orders")
+                    .select("*")
+                    .order(
+                        "created_at",
+                        {
+                            ascending: false
+                        }
+                    );
+
+
+            if (error) {
+
+                console.error(
+                    "Customers error:",
+                    error
+                );
+
+                customersList.innerHTML =
+                    "<p>Could not load customers.</p>";
+
+                return;
+
+            }
+
+
+            if (
+                !orders ||
+                orders.length === 0
+            ) {
+
+                customersList.innerHTML =
+                    "<p>No customers yet.</p>";
+
+                return;
+
+            }
+
+
+            const customers =
+                new Map();
+
+
+            orders.forEach(
+                function(order) {
+
+                    customers.set(
+                        order.customer_phone,
+                        order
+                    );
+
+                }
+            );
+
+
+            customersList.innerHTML = "";
+
+
+            customers.forEach(
+                function(customer) {
+
+                    const div =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    div.className =
+                        "customer-item";
+
+
+                    div.innerHTML = `
+
+                        <h3>
+                            ${customer.customer_name || "N/A"}
+                        </h3>
+
+                        <p>
+                            <strong>
+                                Phone:
+                            </strong>
+
+                            ${customer.customer_phone || "N/A"}
+                        </p>
+
+                        <p>
+                            <strong>
+                                Address:
+                            </strong>
+
+                            ${customer.customer_address || "N/A"}
+                        </p>
+
+                    `;
+
+
+                    customersList.appendChild(div);
+
+                }
+            );
+
+        }
+
+    </script>
+
+</body>
+
+</html>
