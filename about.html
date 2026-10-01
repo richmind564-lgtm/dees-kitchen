@@ -1,36 +1,176 @@
-<header>
-    <h1>About Dee Kitchen</h1>
-</header>
+<!DOCTYPE html>
+<html lang="en">
 
-<section class="about">
-    <h2>Who We Are</h2>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <p>
-        Welcome to <strong>Dee Kitchen</strong>! We are passionate about preparing
-        delicious meals, tasty desserts, and refreshing drinks made with fresh
-        ingredients and served with love.
-    </p>
+    <title>About Dee Kitchen</title>
 
-    <h2>Our Mission</h2>
+    <link rel="stylesheet" href="style.css">
 
-    <p>
-        Our mission is to provide quality food, excellent customer service,
-        and a memorable dining experience for every customer.
-    </p>
+    <style>
+        /* =========================
+           ABOUT US PAGE
+        ========================= */
 
-    <h2>Why Choose Us?</h2>
+        body {
+            margin: 0;
+            background: linear-gradient(
+                135deg,
+                #c6aec4,
+                #f8eef7
+            );
+            font-family: Arial, sans-serif;
+        }
 
-    <ul>
-        <li>🍽️ Freshly prepared meals</li>
-        <li>🍰 Delicious desserts</li>
-        <li>🥤 Refreshing drinks</li>
-        <li>🚚 Fast and reliable delivery</li>
-        <li>😊 Friendly customer service</li>
-    </ul>
+        header {
+            background: darkkhaki;
+            text-align: center;
+            padding: 25px 15px;
+        }
 
-    <br>
+        header h1 {
+            color: maroon;
+            margin: 0;
+            font-size: 32px;
+        }
 
-    <a href="index.html">
-        <button>⬅ Back to Home</button>
-    </a>
-</section>
+        .about {
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            line-height: 1.7;
+            box-sizing: border-box;
+        }
+
+        .about h2 {
+            color: #800000;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            font-size: 26px;
+        }
+
+        .about h2:first-child {
+            margin-top: 0;
+        }
+
+        .about p {
+            color: #444;
+            font-size: 17px;
+            margin-bottom: 20px;
+        }
+
+        .about strong {
+            color: #800000;
+        }
+
+        .about ul {
+            padding-left: 25px;
+            margin-top: 10px;
+        }
+
+        .about li {
+            color: #444;
+            font-size: 17px;
+            margin-bottom: 10px;
+        }
+
+        .about a {
+            text-decoration: none;
+        }
+
+        .about button {
+            background: #800000;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .about button:hover {
+            background: #5f0000;
+            transform: translateY(-2px);
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+
+            header h1 {
+                font-size: 26px;
+            }
+
+            .about {
+                margin: 25px 15px;
+                padding: 25px 20px;
+            }
+
+            .about h2 {
+                font-size: 22px;
+            }
+
+            .about p,
+            .about li {
+                font-size: 16px;
+            }
+
+            .about button {
+                width: 100%;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+        <h1>About Dee Kitchen</h1>
+    </header>
+
+    <section class="about">
+
+        <h2>Who We Are</h2>
+
+        <p>
+            Welcome to <strong>Dee Kitchen</strong>!
+            We are passionate about preparing delicious meals,
+            tasty desserts, and refreshing drinks made with fresh
+            ingredients and served with love.
+        </p>
+
+        <h2>Our Mission</h2>
+
+        <p>
+            Our mission is to provide quality food, excellent
+            customer service, and a memorable dining experience
+            for every customer.
+        </p>
+
+        <h2>Why Choose Us?</h2>
+
+        <ul>
+            <li>Freshly prepared meals</li>
+            <li>Delicious desserts</li>
+            <li>Refreshing drinks</li>
+            <li>Fast and reliable delivery</li>
+            <li>Friendly customer service</li>
+        </ul>
+
+        <br>
+
+        <a href="index.html">
+            <button>Back to Home</button>
+        </a>
+
+    </section>
+
+</body>
+
+</html>
