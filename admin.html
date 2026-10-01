@@ -182,8 +182,6 @@
                 <section class="dashboard-cards">
 
 
-                    <!-- TOTAL MEALS -->
-
                     <div class="card">
 
                         <h3>
@@ -196,8 +194,6 @@
 
                     </div>
 
-
-                    <!-- TOTAL ORDERS -->
 
                     <div class="card">
 
@@ -212,8 +208,6 @@
                     </div>
 
 
-                    <!-- CUSTOMERS -->
-
                     <div class="card">
 
                         <h3>
@@ -226,8 +220,6 @@
 
                     </div>
 
-
-                    <!-- TOTAL REVENUE -->
 
                     <div class="card">
 
@@ -700,10 +692,6 @@
 
         async function loadDashboard() {
 
-            // -------------------------
-            // LOAD MEALS
-            // -------------------------
-
             const {
                 data: meals,
                 error: mealsError
@@ -734,10 +722,6 @@
             }
 
 
-            // -------------------------
-            // LOAD ORDERS
-            // -------------------------
-
             const {
                 data: orders,
                 error: ordersError
@@ -765,19 +749,11 @@
             }
 
 
-            // -------------------------
-            // TOTAL ORDERS
-            // -------------------------
-
             document
                 .getElementById("total-orders")
                 .textContent =
                 orders.length;
 
-
-            // -------------------------
-            // TOTAL CUSTOMERS
-            // -------------------------
 
             const customerPhones =
                 new Set();
@@ -806,10 +782,6 @@
                 customerPhones.size;
 
 
-            // -------------------------
-            // TOTAL REVENUE
-            // -------------------------
-
             let totalRevenue = 0;
 
 
@@ -831,10 +803,6 @@
                 "₦" +
                 totalRevenue.toLocaleString();
 
-
-            // -------------------------
-            // RECENT ORDERS
-            // -------------------------
 
             const recentOrders =
                 document.getElementById(
@@ -1174,6 +1142,18 @@
 
                     </select>
 
+
+                    <!-- DELETE ORDER BUTTON -->
+
+                    <button
+                        type="button"
+                        class="delete-order-btn"
+                        onclick="deleteOrder(${order.id})"
+                    >
+                        Delete Order
+                    </button>
+
+
                     <hr>
 
                 `;
@@ -1232,6 +1212,136 @@
 
 
             loadOrders();
+
+        }
+
+
+        // =========================
+        // DELETE ORDER
+        // =========================
+
+        async function deleteOrder(orderId) {
+
+            const confirmDelete =
+                confirm(
+                    "Are you sure you want to delete Order #" +
+                    orderId +
+                    "?"
+                );
+
+
+            if (!confirmDelete) {
+
+                return;
+
+            }
+
+
+            // -------------------------
+            // DELETE ORDER ITEMS FIRST
+            // -------------------------
+
+            const {
+                error: itemsError
+            } =
+                await supabaseClient
+                    .from("order_items")
+                    .delete()
+                    .eq(
+                        "order_id",
+                        orderId
+                    );
+
+
+            if (itemsError) {
+
+                console.error(
+                    "Order items delete error:",
+                    itemsError
+                );
+
+                alert(
+                    "Could not delete the meals belonging to this order."
+                );
+
+                return;
+
+            }
+
+
+            // -------------------------
+            // DELETE THE ORDER
+            // -------------------------
+
+            const {
+                data: deletedOrder,
+                error: orderError
+            } =
+                await supabaseClient
+                    .from("orders")
+                    .delete()
+                    .eq(
+                        "id",
+                        orderId
+                    )
+                    .select();
+
+
+            if (orderError) {
+
+                console.error(
+                    "Order delete error:",
+                    orderError
+                );
+
+                alert(
+                    "Could not delete the order."
+                );
+
+                return;
+
+            }
+
+
+            // -------------------------
+            // CHECK IF IT WAS ACTUALLY DELETED
+            // -------------------------
+
+            if (
+                !deletedOrder ||
+                deletedOrder.length === 0
+            ) {
+
+                console.error(
+                    "No order was deleted."
+                );
+
+                alert(
+                    "The order was not deleted. Please check your Supabase DELETE policy."
+                );
+
+                return;
+
+            }
+
+
+            // -------------------------
+            // SUCCESS
+            // -------------------------
+
+            alert(
+                "Order #" +
+                orderId +
+                " has been deleted."
+            );
+
+
+            // Refresh Orders
+            await loadOrders();
+
+
+            // Refresh Dashboard
+            await loadDashboard();
 
         }
 
