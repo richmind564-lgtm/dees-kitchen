@@ -2,69 +2,188 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const cartItems = document.getElementById("cart-items");
     const cartTotal = document.getElementById("cart-total");
+    const cartTotalSummary =
+        document.getElementById("cart-total-summary");
+
     const cartCount = document.getElementById("cart-count");
     const clearCart = document.getElementById("clear-cart");
 
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let cart =
+        JSON.parse(localStorage.getItem("cart")) || [];
+
 
     function displayCart() {
 
         cartItems.innerHTML = "";
 
         let total = 0;
+        let count = 0;
+
 
         cart.forEach((item, index) => {
 
-            total += item.price;
+            const quantity = item.quantity || 1;
+
+            total += Number(item.price) * quantity;
+            count += quantity;
+
 
             const li = document.createElement("li");
 
             li.innerHTML = `
-                <span>${item.name}</span>
-                <span>₦${item.price}</span>
+                <div class="cart-item-info">
 
-                <button class="remove-btn" data-index="${index}">
-                    Remove
-                </button>
+                    <strong>
+                        ${item.name}
+                    </strong>
+
+                    <span>
+                        ₦${Number(item.price).toLocaleString()}
+                    </span>
+
+                </div>
+
+                <div class="cart-controls">
+
+                    <button
+                        class="minus-btn"
+                        data-index="${index}">
+                        -
+                    </button>
+
+                    <span class="quantity">
+                        ${quantity}
+                    </span>
+
+                    <button
+                        class="plus-btn"
+                        data-index="${index}">
+                        +
+                    </button>
+
+                    <button
+                        class="remove-btn"
+                        data-index="${index}">
+                        Remove
+                    </button>
+
+                </div>
             `;
 
             cartItems.appendChild(li);
 
         });
 
-        cartTotal.textContent = total;
-        cartCount.textContent = cart.length;
 
-        localStorage.setItem("cart", JSON.stringify(cart));
+        // UPDATE TOTAL
+        cartTotal.textContent =
+            total.toLocaleString();
 
-        document.querySelectorAll(".remove-btn").forEach(button => {
+        if (cartTotalSummary) {
+            cartTotalSummary.textContent =
+                total.toLocaleString();
+        }
 
-            button.addEventListener("click", () => {
 
-                const index = button.dataset.index;
+        // UPDATE COUNT
+        cartCount.textContent = count;
 
-                cart.splice(index, 1);
 
-                displayCart();
+        // SAVE CART
+        localStorage.setItem(
+            "cart",
+            JSON.stringify(cart)
+        );
+
+
+        // PLUS
+        document
+            .querySelectorAll(".plus-btn")
+            .forEach(button => {
+
+                button.addEventListener("click", () => {
+
+                    const index =
+                        button.dataset.index;
+
+                    cart[index].quantity =
+                        (cart[index].quantity || 1) + 1;
+
+                    displayCart();
+
+                });
 
             });
+
+
+        // MINUS
+        document
+            .querySelectorAll(".minus-btn")
+            .forEach(button => {
+
+                button.addEventListener("click", () => {
+
+                    const index =
+                        button.dataset.index;
+
+                    if (
+                        (cart[index].quantity || 1) > 1
+                    ) {
+
+                        cart[index].quantity--;
+
+                    } else {
+
+                        cart.splice(index, 1);
+
+                    }
+
+                    displayCart();
+
+                });
+
+            });
+
+
+        // REMOVE
+        document
+            .querySelectorAll(".remove-btn")
+            .forEach(button => {
+
+                button.addEventListener("click", () => {
+
+                    const index =
+                        button.dataset.index;
+
+                    cart.splice(index, 1);
+
+                    displayCart();
+
+                });
+
+            });
+
+    }
+
+
+    displayCart();
+
+
+    // CLEAR CART
+    if (clearCart) {
+
+        clearCart.addEventListener("click", () => {
+
+            cart = [];
+
+            localStorage.removeItem("cart");
+
+            displayCart();
+
+            alert("Cart cleared!");
 
         });
 
     }
-
-    displayCart();
-
-    clearCart.addEventListener("click", () => {
-
-        cart = [];
-
-        localStorage.removeItem("cart");
-
-        displayCart();
-
-        alert("Cart cleared!");
-
-    });
 
 });
