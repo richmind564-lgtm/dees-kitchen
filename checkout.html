@@ -1,25 +1,1016 @@
-<h2>Checkout</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<form>
-    <label>Full Name</label><br>
-    <input type="text" required><br><br>
+    <title>Checkout - Dee's Kitchen</title>
 
-    <label>Phone Number</label><br>
-    <input type="tel" required><br><br>
+    <link rel="stylesheet" href="style.css">
 
-    <label>Delivery Address</label><br>
-    <textarea required></textarea><br><br>
+    <style>
+        body {
+            margin: 0;
+            background: linear-gradient(135deg, #c6aec4, #f8eef7);
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+        }
 
-    <h3>Payment Method</h3>
+        header {
+            text-align: center;
+            padding: 25px;
+        }
 
-    <input type="radio" name="payment" value="bank" required>
-    Bank Transfer<br>
+        header h1 {
+            color: #800000;
+            margin: 0;
+        }
 
-    <input type="radio" name="payment" value="cash">
-    Cash on Delivery<br>
+        #checkout-form {
+            width: 90%;
+            max-width: 550px;
+            margin: 20px auto 50px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+            box-sizing: border-box;
+        }
 
-    <input type="radio" name="payment" value="card">
-    Debit/Credit Card<br><br>
+        #checkout-form label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+            color: #333;
+        }
 
-    <button type="submit">Place Order</button>
+        #checkout-form input[type="text"],
+        #checkout-form input[type="tel"],
+        #checkout-form input[type="email"],
+        #checkout-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        #checkout-form textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        #checkout-form input:focus,
+        #checkout-form textarea:focus {
+            outline: none;
+            border-color: #800000;
+        }
+
+        #checkout-form h3 {
+            margin-top: 20px;
+            color: #800000;
+        }
+
+        /* PAYMENT OPTIONS */
+
+        .payment-option {
+            display: block;
+            padding: 14px;
+            margin: 8px 0;
+            background: #f8f8f8;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            transition: 0.2s;
+        }
+
+        .payment-option:hover {
+            border-color: #800000;
+            background: #fffafa;
+        }
+
+        .payment-option input {
+            margin-right: 8px;
+        }
+
+        .payment-option:has(input:checked) {
+            border-color: #800000;
+            background: #fff5f5;
+        }
+
+        /* PAYMENT DETAILS */
+
+        .payment-details {
+            display: none;
+            margin: 10px 0 15px;
+            padding: 18px;
+            border-radius: 12px;
+            background: #fffaf0;
+            border: 1px solid #e3d4b8;
+            border-left: 5px solid #800000;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .payment-details h4 {
+            margin: 0 0 15px;
+            color: #800000;
+            font-size: 18px;
+        }
+
+        .payment-details p {
+            margin: 9px 0;
+            line-height: 1.5;
+            color: #333;
+        }
+
+        .payment-details strong {
+            color: #800000;
+        }
+
+        /* BANK */
+
+        #bank-details {
+            background: #fffaf0;
+        }
+
+        #bank-total {
+            font-size: 20px;
+            font-weight: bold;
+            color: #800000;
+        }
+
+        .bank-warning {
+            margin-top: 15px !important;
+            padding: 10px;
+            background: #f5eeee;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #555 !important;
+        }
+
+        /* CARD */
+
+        #card-details {
+            background: #f7f1f7;
+            border-color: #d8c4d8;
+        }
+
+        #card-details p {
+            font-size: 14px;
+        }
+
+        /* TOTAL */
+
+        .total-box {
+            margin-top: 10px;
+            padding: 15px;
+            background: #f3e5f5;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .total-box strong {
+            font-size: 20px;
+            color: #800000;
+        }
+
+        /* BUTTON */
+
+        #checkout-button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 8px;
+            background: #800000;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #checkout-button:hover {
+            background: #5f0000;
+        }
+
+        #checkout-button:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+
+        .security-note {
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+            margin-top: 12px;
+        }
+
+        @media (max-width: 600px) {
+            #checkout-form {
+                width: 92%;
+                padding: 22px;
+            }
+
+            .payment-details {
+                padding: 15px;
+            }
+
+            .payment-details h4 {
+                font-size: 17px;
+            }
+
+            .payment-details p {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Checkout</h1>
+</header>
+
+<section>
+
+<form id="checkout-form">
+
+    <label for="customer-name">
+        Full Name
+    </label>
+
+    <input
+        type="text"
+        id="customer-name"
+        placeholder="Enter your full name"
+        required
+    >
+
+
+    <label for="customer-phone">
+        Phone Number
+    </label>
+
+    <input
+        type="tel"
+        id="customer-phone"
+        placeholder="Enter your phone number"
+        required
+    >
+
+
+    <label for="customer-email">
+        Email Address
+    </label>
+
+    <input
+        type="email"
+        id="customer-email"
+        placeholder="Enter your email address"
+        required
+    >
+
+
+    <label for="delivery-address">
+        Delivery Address
+    </label>
+
+    <textarea
+        id="delivery-address"
+        placeholder="Enter your delivery address"
+        required
+    ></textarea>
+
+
+    <!-- TOTAL -->
+
+    <div class="total-box">
+        <strong>
+            Total: ₦<span id="checkout-total">0</span>
+        </strong>
+    </div>
+
+
+    <!-- PAYMENT METHODS -->
+
+    <h3>
+        Payment Method
+    </h3>
+
+
+    <!-- BANK TRANSFER -->
+
+    <label class="payment-option">
+
+        <input
+            type="radio"
+            name="payment"
+            value="bank"
+            required
+        >
+
+         Bank Transfer
+
+    </label>
+
+
+    <div
+        id="bank-details"
+        class="payment-details"
+    >
+
+        <h4>
+             Bank Transfer Details
+        </h4>
+
+        <p>
+            <strong>Bank Name:</strong>
+            ZENITH  Bank
+        </p>
+
+        <p>
+            <strong>Account Name:</strong>
+            Khadijat Danladi Musa
+        </p>
+
+        <p>
+            <strong>Account Number:</strong>
+            4263583364
+
+        </p>
+
+        <p>
+            <strong>Amount to Transfer:</strong>
+            ₦<span id="bank-total">0</span>
+        </p>
+
+        <p class="bank-warning">
+            Please transfer the exact amount shown above.
+            After making the transfer, click
+            <strong>Continue to Payment</strong>.
+        </p>
+
+    </div>
+
+
+    <!-- CASH ON DELIVERY -->
+
+    <label class="payment-option">
+
+        <input
+            type="radio"
+            name="payment"
+            value="cash"
+        >
+
+         Cash on Delivery
+
+    </label>
+
+
+    <!-- CARD -->
+
+    <label class="payment-option">
+
+        <input
+            type="radio"
+            name="payment"
+            value="card"
+        >
+
+         Debit/Credit Card
+
+    </label>
+
+
+    <div
+        id="card-details"
+        class="payment-details"
+    >
+
+        <h4>
+             Secure Card Payment
+        </h4>
+
+        <p>
+            Pay securely using your
+            <strong>debit or credit card</strong>.
+        </p>
+
+        <p>
+            Paystack will open a secure payment window
+            where you can complete your payment.
+        </p>
+
+        <p>
+            Dee's Kitchen does not store your
+            card number or CVV.
+        </p>
+
+        <p>
+            You can also use <strong>USSD</strong>
+            where available.
+        </p>
+
+    </div>
+
+
+    <!-- BUTTON -->
+
+    <button
+        type="submit"
+        id="checkout-button"
+    >
+        Continue to Payment
+    </button>
+
+
+    <p class="security-note">
+         Secure payment powered by Paystack
+    </p>
+
 </form>
+
+</section>
+
+
+<!-- PAYSTACK -->
+
+<script src="https://js.paystack.co/v2/inline.js"></script>
+
+
+<!-- SUPABASE -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script>
+
+const SUPABASE_URL =
+    "https://nreigsqxxolcbbzacmdg.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_TU09leMRuVGZ59y7TjqZzg_n2M2R5Wc";
+
+const PAYSTACK_PUBLIC_KEY =
+    "pk_test_f6feff3668b5aa2ede4b60aafa9025baa94c1b5d";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+const checkoutForm =
+    document.getElementById("checkout-form");
+
+const checkoutButton =
+    document.getElementById("checkout-button");
+
+const bankDetails =
+    document.getElementById("bank-details");
+
+const cardDetails =
+    document.getElementById("card-details");
+
+
+function getCart() {
+
+    return JSON.parse(
+        localStorage.getItem("cart")
+    ) || [];
+
+}
+
+
+function getCartTotal(cart) {
+
+    return cart.reduce(
+        function(total, item) {
+
+            return total +
+                (
+                    Number(item.price) *
+                    Number(item.quantity)
+                );
+
+        },
+        0
+    );
+
+}
+
+
+function displayTotal() {
+
+    const cart = getCart();
+
+    const total =
+        getCartTotal(cart);
+
+
+    const checkoutTotal =
+        document.getElementById(
+            "checkout-total"
+        );
+
+    const bankTotal =
+        document.getElementById(
+            "bank-total"
+        );
+
+
+    if (checkoutTotal) {
+
+        checkoutTotal.textContent =
+            total.toLocaleString();
+
+    }
+
+
+    if (bankTotal) {
+
+        bankTotal.textContent =
+            total.toLocaleString();
+
+    }
+
+}
+
+
+displayTotal();
+
+
+const paymentOptions =
+    document.querySelectorAll(
+        'input[name="payment"]'
+    );
+
+
+paymentOptions.forEach(
+    function(option) {
+
+        option.addEventListener(
+            "change",
+            function() {
+
+                if (bankDetails) {
+
+                    bankDetails.style.display =
+                        "none";
+
+                }
+
+                if (cardDetails) {
+
+                    cardDetails.style.display =
+                        "none";
+
+                }
+
+
+                if (
+                    this.value === "bank"
+                ) {
+
+                    bankDetails.style.display =
+                        "block";
+
+                }
+
+
+                if (
+                    this.value === "card"
+                ) {
+
+                    cardDetails.style.display =
+                        "block";
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+checkoutForm.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        const customerName =
+            document.getElementById(
+                "customer-name"
+            ).value.trim();
+
+
+        const customerPhone =
+            document.getElementById(
+                "customer-phone"
+            ).value.trim();
+
+
+        const customerEmail =
+            document.getElementById(
+                "customer-email"
+            ).value.trim();
+
+
+        const deliveryAddress =
+            document.getElementById(
+                "delivery-address"
+            ).value.trim();
+
+
+        const selectedPayment =
+            document.querySelector(
+                'input[name="payment"]:checked'
+            );
+
+
+        if (
+            !customerName ||
+            !customerPhone ||
+            !customerEmail ||
+            !deliveryAddress
+        ) {
+
+            alert(
+                "Please fill in all customer details."
+            );
+
+            return;
+
+        }
+
+
+        if (!selectedPayment) {
+
+            alert(
+                "Please select a payment method."
+            );
+
+            return;
+
+        }
+
+
+        const cart =
+            getCart();
+
+
+        if (cart.length === 0) {
+
+            alert(
+                "Your cart is empty."
+            );
+
+            return;
+
+        }
+
+
+        const totalAmount =
+            getCartTotal(cart);
+
+
+        if (totalAmount <= 0) {
+
+            alert(
+                "Invalid order total."
+            );
+
+            return;
+
+        }
+
+
+        const paymentMethod =
+            selectedPayment.value;
+
+
+        checkoutButton.disabled =
+            true;
+
+        checkoutButton.textContent =
+            "Processing...";
+
+
+        if (
+            paymentMethod === "bank"
+        ) {
+
+            await saveOrder(
+                customerName,
+                customerPhone,
+                deliveryAddress,
+                "bank",
+                totalAmount,
+                cart
+            );
+
+            return;
+
+        }
+
+
+        if (
+            paymentMethod === "cash"
+        ) {
+
+            await saveOrder(
+                customerName,
+                customerPhone,
+                deliveryAddress,
+                "cash",
+                totalAmount,
+                cart
+            );
+
+            return;
+
+        }
+
+
+        if (
+            paymentMethod === "card"
+        ) {
+
+            startPaystackPayment(
+                customerName,
+                customerPhone,
+                customerEmail,
+                deliveryAddress,
+                totalAmount,
+                cart
+            );
+
+        }
+
+    }
+);
+
+
+function startPaystackPayment(
+    customerName,
+    customerPhone,
+    customerEmail,
+    deliveryAddress,
+    totalAmount,
+    cart
+) {
+
+    const amountInKobo =
+        Math.round(
+            totalAmount * 100
+        );
+
+
+    try {
+
+        const paystack =
+            new PaystackPop();
+
+
+        paystack.newTransaction({
+
+            key:
+                PAYSTACK_PUBLIC_KEY,
+
+            email:
+                customerEmail,
+
+            amount:
+                amountInKobo,
+
+            channels:
+                [
+                    "card",
+                    "ussd"
+                ],
+
+
+            onSuccess:
+                async function(transaction) {
+
+                    console.log(
+                        "Payment successful:",
+                        transaction
+                    );
+
+
+                    await saveOrder(
+                        customerName,
+                        customerPhone,
+                        deliveryAddress,
+                        "card",
+                        totalAmount,
+                        cart,
+                        transaction.reference
+                    );
+
+                },
+
+
+            onCancel:
+                function() {
+
+                    checkoutButton.disabled =
+                        false;
+
+                    checkoutButton.textContent =
+                        "Continue to Payment";
+
+
+                    alert(
+                        "Payment was cancelled."
+                    );
+
+                }
+
+        });
+
+    }
+
+    catch(error) {
+
+        console.error(
+            "Paystack error:",
+            error
+        );
+
+
+        checkoutButton.disabled =
+            false;
+
+        checkoutButton.textContent =
+            "Continue to Payment";
+
+
+        alert(
+            "Unable to open Paystack. Please try again."
+        );
+
+    }
+
+}
+
+
+async function saveOrder(
+    customerName,
+    customerPhone,
+    deliveryAddress,
+    paymentMethod,
+    totalAmount,
+    cart,
+    paymentReference = null
+) {
+
+    try {
+
+        const {
+            data: orderId,
+            error: orderError
+        } =
+            await supabaseClient.rpc(
+                "place_order",
+                {
+
+                    p_customer_name:
+                        customerName,
+
+                    p_customer_phone:
+                        customerPhone,
+
+                    p_customer_address:
+                        deliveryAddress,
+
+                    p_payment_method:
+                        paymentMethod,
+
+                    p_total_amount:
+                        totalAmount,
+
+                    p_items:
+                        cart
+
+                }
+            );
+
+
+        if (orderError) {
+
+            console.error(
+                "Order error:",
+                orderError
+            );
+
+
+            alert(
+                "There was a problem saving your order:\n\n" +
+                orderError.message
+            );
+
+
+            checkoutButton.disabled =
+                false;
+
+            checkoutButton.textContent =
+                "Continue to Payment";
+
+
+            return;
+
+        }
+
+
+        console.log(
+            "Order created:",
+            orderId
+        );
+
+
+        console.log(
+            "Payment reference:",
+            paymentReference
+        );
+
+
+        localStorage.removeItem(
+            "cart"
+        );
+
+
+        if (
+            paymentMethod === "bank"
+        ) {
+
+            alert(
+                "Your order has been received.\n\n" +
+                "Please complete the bank transfer using the account details provided."
+            );
+
+        }
+
+        else if (
+            paymentMethod === "cash"
+        ) {
+
+            alert(
+                "Your order has been received.\n\n" +
+                "Please pay when your food is delivered."
+            );
+
+        }
+
+        else {
+
+            alert(
+                "Payment successful!\n\n" +
+                "Your order has been received."
+            );
+
+        }
+
+
+        window.location.href =
+            "index.html";
+
+    }
+
+    catch(error) {
+
+        console.error(
+            "Unexpected error:",
+            error
+        );
+
+
+        alert(
+            "Something went wrong. Please try again."
+        );
+
+
+        checkoutButton.disabled =
+            false;
+
+        checkoutButton.textContent =
+            "Continue to Payment";
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
