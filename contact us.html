@@ -1,53 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Contact - Dee Kitchen</title>
+
     <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        /* =========================
+           CONTACT PAGE
+        ========================= */
+
+        body {
+            margin: 0;
+            background: linear-gradient(
+                135deg,
+                #c6aec4,
+                #f8eef7
+            );
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background: darkkhaki;
+            text-align: center;
+            padding: 25px 15px;
+        }
+
+        header h1 {
+            color: maroon;
+            margin: 0 0 8px;
+            font-size: 32px;
+        }
+
+        header p {
+            color: #333;
+            margin: 0;
+            font-size: 17px;
+        }
+
+        .contact {
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            box-sizing: border-box;
+        }
+
+        .contact h2 {
+            color: #800000;
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .contact p {
+            background: #f8eef7;
+            padding: 18px;
+            margin: 15px 0;
+            border-radius: 10px;
+            color: #444;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .contact strong {
+            color: #800000;
+        }
+
+        .contact a {
+            color: #800000;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .contact a:hover {
+            text-decoration: underline;
+        }
+
+        .back-home {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .back-home button {
+            background: #800000;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .back-home button:hover {
+            background: #5f0000;
+            transform: translateY(-2px);
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            header h1 {
+                font-size: 26px;
+            }
+
+            header p {
+                font-size: 15px;
+            }
+
+            .contact {
+                margin: 25px 15px;
+                padding: 25px 20px;
+            }
+
+            .contact h2 {
+                font-size: 24px;
+            }
+
+            .contact p {
+                font-size: 15px;
+                padding: 15px;
+            }
+
+            .back-home button {
+                width: 100%;
+            }
+        }
+
+    </style>
+
 </head>
+
 <body>
 
-<header>
-    <h1>Contact Dee Kitchen</h1>
-    <p>We'd love to hear from you!</p>
-</header>
+    <header>
 
-<section class="contact">
-    <h2>Get in Touch</h2>
-    <p>
-        <strong>📘 Facebook:</strong>
-        <a href="https://www.facebook.com/share/1JTKFiuyrY/?mibextid=wwXIfr" target="_blank">
-        Visit our Facebook Page
-        </a>
-    </p>
+        <h1>Contact Dee Kitchen</h1>
 
-    <p><strong>📍 Address:</strong> Makurdi, Benue State, Nigeria</p>
+        <p>We'd love to hear from you!</p>
 
-    <p><strong>📞 Phone:</strong> +234 9041627592</p>
+    </header>
 
-    <p><strong>📧 Email:</strong> info@deeskitchen.com</p>
 
-    <p>
-        <strong>💬 WhatsApp:</strong>
-        <a href="https://wa.me/2348163699980" target="_blank">
-            Chat with us
-        </a>
-    </p>
+    <section class="contact">
 
-    <p>
-        <strong>📷 TikTok:</strong>
-        <a href="https://tiktok.com/@deeskitchen" target="_blank">
-            @deeskitchen
-        </a>
-    </p>
+        <h2>Get in Touch</h2>
 
-    <br>
 
-    <a href="index.html">
-        <button>⬅ Back to Home</button>
-    </a>
-</section>
+        <p>
+            <strong>Facebook:</strong>
+
+            <a
+                href="https://www.facebook.com/share/1JTKFiuyrY/?mibextid=wwXIfr"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Visit our Facebook Page
+            </a>
+        </p>
+
+
+        <p>
+            <strong>Address:</strong>
+
+            Makurdi, Benue State, Nigeria
+        </p>
+
+
+        <p>
+            <strong>Phone:</strong>
+
+            <a href="tel:+2349041627592">
+                +234 9041627592
+            </a>
+        </p>
+
+
+        <p>
+            <strong>Email:</strong>
+
+            <a href="mailto:info@deeskitchen.com">
+                info@deeskitchen.com
+            </a>
+        </p>
+
+
+        <p>
+            <strong>WhatsApp:</strong>
+
+            <a
+                href="https://wa.me/2348163699980"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Chat with us
+            </a>
+        </p>
+
+
+        <p>
+            <strong>TikTok:</strong>
+
+            <a
+                href="https://tiktok.com/@deeskitchen"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                @deeskitchen
+            </a>
+        </p>
+
+
+        <div class="back-home">
+
+            <a href="index.html">
+                <button>Back to Home</button>
+            </a>
+
+        </div>
+
+    </section>
 
 </body>
+
 </html>
